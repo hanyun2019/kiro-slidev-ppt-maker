@@ -9,11 +9,17 @@ transition: none
 mdc: true
 ---
 
+<style>
+:root {
+  --theme-background: rgb(20, 30, 44);
+}
+</style>
+
 ::title::
 AWS Dark Theme
 
 ::subtitle::
-A Professional Slidev Theme for AWS Presentations
+*A Professional Slidev Theme for AWS Presentations*
 
 ::speaker::
 Your Name (Pronouns)
@@ -22,28 +28,12 @@ Your Title
 
 Your Company
 
-<!--
-This is the cover slide with AWS gradient background.
-Use named slots for structured content.
--->
-
 ---
 layout: section
 ---
 
+# Part 1
 # Layouts
-
-Explore all available layouts
-
-This chapter covers:
-- Cover, intro, and section layouts
-- Content layouts (default, center)
-- Multi-column layouts (left-right, two-cols)
-- Image layouts (image-right)
-
-<!--
-Section slide introducing the layouts chapter with content below.
--->
 
 ---
 src: ./pages/01-layouts.md
@@ -53,13 +43,8 @@ src: ./pages/01-layouts.md
 layout: section
 ---
 
+# Part 2
 # Content Features
-
-Code, tables, diagrams, and more
-
-<!--
-Section slide introducing the content features chapter.
--->
 
 ---
 src: ./pages/02-content.md
@@ -69,13 +54,8 @@ src: ./pages/02-content.md
 layout: section
 ---
 
+# Part 3
 # Background Customization
-
-Customize colors and gradients
-
-<!--
-Section slide introducing the background customization chapter.
--->
 
 ---
 src: ./pages/03-backgrounds.md
@@ -85,10 +65,6 @@ src: ./pages/03-backgrounds.md
 layout: end
 ---
 
-# Thank You !
+# Thank You
 
 Questions?
-
-<!--
-End layout provides a clean conclusion to your presentation.
--->

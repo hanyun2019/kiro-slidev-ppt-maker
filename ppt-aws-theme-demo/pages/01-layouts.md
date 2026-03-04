@@ -14,10 +14,6 @@ This layout is perfect for introducing new topics or sections. It provides a cle
 
 Use it when you need more text than a section slide but want to maintain visual impact.
 
-<!--
-Intro layout is between section and default - more content than section, cleaner than default.
--->
-
 ---
 layout: intro
 class: bg-aws-dark-blue
@@ -32,10 +28,6 @@ This slide uses `class: bg-aws-dark-blue` (#141e2c)
 Perfect for a softer, more professional look than pure black while maintaining the dark theme aesthetic.
 
 Great for corporate presentations or when you want a subtle background.
-
-<!--
-Demonstrates AWS dark blue background - a professional alternative to pure black.
--->
 
 ---
 layout: default
@@ -52,18 +44,12 @@ This is the standard content layout with:
 
 Perfect for most content slides with text, lists, and code.
 
-<!--
-Default layout is the workhorse - use it for most content slides.
--->
-
----
-layout: two-cols
 ---
 
-::title::
-# Two-cols layout
+# Grid Layout (Two Columns)
 
-::left::
+<div grid="~ cols-2 gap-6">
+<div>
 
 ## Left Column
 
@@ -71,9 +57,10 @@ layout: two-cols
 - Point 2
 - Point 3
 
-This layout has a title and two scrollable columns.
+This uses grid layout for two columns.
 
-::right::
+</div>
+<div>
 
 ## Right Column
 
@@ -83,15 +70,17 @@ This layout has a title and two scrollable columns.
 
 Perfect for comparisons or detailed content.
 
-<!--
-Two-cols layout with title and scrollable columns for longer content.
--->
+</div>
+</div>
 
 ---
-layout: left-right
----
 
-# Left Column
+# Grid Layout (Left-Right Style)
+
+<div grid="~ cols-2 gap-6">
+<div>
+
+## Left Column
 
 Left column content:
 
@@ -101,9 +90,10 @@ Left column content:
 
 Perfect for comparisons or side-by-side content.
 
-::right::
+</div>
+<div>
 
-# Right Column
+## Right Column
 
 Right column content:
 
@@ -113,17 +103,15 @@ Right column content:
 
 Both columns are equal width.
 
-<!--
-Two-column layout is great for comparisons, before/after, or complementary content.
--->
+</div>
+</div>
 
----
-layout: image-right
 ---
 
 # Image Right Layout
 
-::left::
+<div grid="~ cols-2 gap-6">
+<div>
 
 Content on the left, image on the right.
 
@@ -132,13 +120,13 @@ Content on the left, image on the right.
 - Maintains aspect ratio
 - Great for architecture diagrams
 
-::right::
+</div>
+<div>
 
 ![City Landscape](https://d1.awsstatic.com/onedam/marketing-channels/website/aws/en_US/solution-case-studies/approved/images/gcrp-case-study-images/City%20landscape.b396337462b85cb051f37f5799dfd81a91bfbf8e.jpeg)
 
-<!--
-Image-right layout: title spans full width, content splits into left/right columns.
--->
+</div>
+</div>
 
 ---
 
@@ -150,15 +138,12 @@ You can also use images inline within any layout:
 
 Use `{width=XXXpx}` to control image size.
 
-<!--
-Inline images work in any layout. Control size with width parameter.
--->
-
----
-layout: left-right
 ---
 
 # Text Content
+
+<div grid="~ cols-2 gap-6">
+<div>
 
 Combine text and images in columns:
 
@@ -167,10 +152,10 @@ Combine text and images in columns:
 - Global reach
 - High availability
 
-::right::
+</div>
+<div>
 
 ![City Infrastructure](https://d1.awsstatic.com/onedam/marketing-channels/website/aws/en_US/solution-case-studies/approved/images/gcrp-case-study-images/City%20landscape.b396337462b85cb051f37f5799dfd81a91bfbf8e.jpeg){width=100%}
 
-<!--
-Left-right layout also works great with images in either column.
--->
+</div>
+</div>

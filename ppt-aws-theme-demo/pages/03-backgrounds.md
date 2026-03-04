@@ -3,23 +3,6 @@
 This section demonstrates background customization options.
 
 ---
-layout: section
----
-
-# Theme Customization
-
-Customize colors and gradients to match your brand
-
-Learn how to:
-- Change global background colors
-- Apply per-slide background overrides
-- Use predefined gradient presets
-
-<!--
-Section slide demonstrating customization options with content below title.
--->
-
----
 
 # Global Background Settings
 
@@ -53,10 +36,6 @@ Change globally with CSS variables:
 </style>
 ```
 
-<!--
-Explains the two types of background settings: content slides vs special slides.
--->
-
 ---
 
 # Per-Slide Background Override
@@ -83,10 +62,6 @@ class: bg-aws-dark-blue
 
 **Available classes:** `bg-ocean`, `bg-sunset`, `bg-forest`, `bg-night`, `bg-fire`, `bg-royal`, `bg-tech`, `bg-aws-blue`, `bg-aws-orange`, `bg-aws-green`, `bg-black`, `bg-dark-gray`, `bg-dark-blue`, `bg-aws-dark-blue`
 
-<!--
-Shows how to override background for individual slides using predefined classes.
--->
-
 ---
 layout: center
 class: bg-ocean
@@ -99,11 +74,6 @@ class: bg-ocean
 This slide uses `class: bg-ocean`
 
 Perfect for corporate or technical presentations
-
-<!--
-Demonstrates Ocean gradient background - professional blue tones.
-Simply add class: bg-ocean to any slide.
--->
 
 ---
 layout: center
@@ -118,11 +88,6 @@ This slide uses `class: bg-sunset`
 
 Great for marketing or creative presentations
 
-<!--
-Demonstrates Sunset gradient background - warm orange to pink tones.
-Simply add class: bg-sunset to any slide.
--->
-
 ---
 layout: center
 class: bg-forest
@@ -135,11 +100,6 @@ class: bg-forest
 This slide uses `class: bg-forest`
 
 Ideal for environmental or growth-focused topics
-
-<!--
-Demonstrates Forest gradient background - natural green tones.
-Simply add class: bg-forest to any slide.
--->
 
 ---
 layout: center
@@ -154,11 +114,6 @@ This slide uses `class: bg-royal`
 
 Perfect for premium products or creative showcases
 
-<!--
-Demonstrates Royal gradient background - elegant purple tones.
-Simply add class: bg-royal to any slide.
--->
-
 ---
 layout: center
 class: bg-fire
@@ -171,11 +126,6 @@ class: bg-fire
 This slide uses `class: bg-fire`
 
 Great for high-energy or action-oriented content
-
-<!--
-Demonstrates Fire gradient background - bold red to orange tones.
-Simply add class: bg-fire to any slide.
--->
 
 ---
 layout: center
@@ -190,19 +140,12 @@ This slide uses `class: bg-tech`
 
 Perfect for technology or innovation topics
 
-<!--
-Demonstrates Tech gradient background - modern cyan to blue tones.
-Simply add class: bg-tech to any slide.
--->
-
----
-layout: two-cols
 ---
 
-::title::
 # Predefined Gradient Presets
 
-::left::
+<div grid="~ cols-2 gap-6">
+<div>
 
 ## AWS Gradients
 
@@ -212,7 +155,8 @@ layout: two-cols
 - **awsGreen**: Dark to green
 - **awsPurple**: Dark blue to purple
 
-::right::
+</div>
+<div>
 
 ## Theme Gradients
 
@@ -224,9 +168,8 @@ layout: two-cols
 - **royal**: Purple gradient 👑
 - **tech**: Cyan to blue 💻
 
-<!--
-Lists all available gradient presets for easy selection.
--->
+</div>
+</div>
 
 ---
 
@@ -257,10 +200,6 @@ Or mix and match different gradients:
 </style>
 ```
 
-<!--
-Demonstrates how to apply gradient presets to your presentation.
--->
-
 ---
 
 # Other Customization Options
@@ -281,7 +220,3 @@ You can also customize:
 - `--theme-gap`: Column gap (default: 3rem)
 
 See `theme-aws-dark/CUSTOMIZATION.md` for complete guide.
-
-<!--
-Overview of other customization options available in the theme.
--->

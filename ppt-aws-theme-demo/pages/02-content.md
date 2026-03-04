@@ -23,10 +23,6 @@ async function fetchUser(id: number): Promise<User> {
 
 Supports many languages with syntax highlighting.
 
-<!--
-Code blocks are beautifully styled with syntax highlighting.
--->
-
 ---
 layout: center
 ---
@@ -38,11 +34,6 @@ Perfect for <GradientText color="blue-green">section breaks</GradientText> or <G
 Content is centered both horizontally and vertically
 
 Use GradientText component to <GradientText color="blue-purple">emphasize key words</GradientText>
-
-<!--
-Center layout puts content in the middle with vertical and horizontal centering.
-Great for transitions or key messages. Use GradientText for emphasis.
--->
 
 ---
 
@@ -57,10 +48,6 @@ Tables are fully supported:
 | AWS Branding | ✅ | ❌ |
 | Code Highlighting | ✅ | ✅ |
 | Diagrams | ✅ | ✅ |
-
-<!--
-Tables work great for comparisons and data presentation.
--->
 
 ---
 
@@ -78,10 +65,6 @@ Mermaid diagrams are styled with white lines for dark backgrounds.
 
 Use `{scale: 0.8}` to adjust size.
 
-<!--
-Mermaid diagrams are automatically styled for the dark theme.
--->
-
 ---
 
 # Math Equations
@@ -96,10 +79,6 @@ $$
 
 LaTeX support for mathematical expressions.
 
-<!--
-Full LaTeX support for mathematical notation.
--->
-
 ---
 
 # Icons
@@ -112,28 +91,32 @@ Use Iconify icons easily:
 
 Or use emoji: 🚀 ✅ ❌ 💡 📊 🔧
 
-<!--
-Icons and emoji for visual elements.
--->
-
 ---
 
 # UnoCSS Utilities
 
 Slidev includes UnoCSS for styling:
 
-<div class="grid grid-cols-2 gap-4">
-  <div class="bg-blue-500 p-4 rounded">Blue Box</div>
-  <div class="bg-green-500 p-4 rounded">Green Box</div>
+<div grid="~ cols-2 gap-4">
+<div class="bg-[#1a1a2e] border-l-3 border-[#FF9900] p-4">
+
+**Orange Border Box**
+
+Use border-l-3 with custom colors
+
+</div>
+<div class="bg-[#1a1a2e] border-l-3 border-[#5dade2] p-4">
+
+**Blue Border Box**
+
+Perfect for highlighting content
+
+</div>
 </div>
 
 <div class="mt-4 text-center text-3xl font-bold">
   Large Centered Text
 </div>
-
-<!--
-UnoCSS provides utility classes for quick styling.
--->
 
 ---
 layout: center
@@ -146,7 +129,3 @@ layout: center
 [Slidev Documentation](https://sli.dev)
 
 [Theme Repository](#)
-
-<!--
-Final slide with links and resources using center layout.
--->
