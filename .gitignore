@@ -1,7 +1,37 @@
-node_modules
-.DS_Store
-dist
-*.local
-.vite-inspect
-.remote-assets
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.output/
+
+# Slidev build artifacts
 components.d.ts
+.remote-assets/
+
+# Vite
+.vite-inspect/
+.vite/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+Thumbs.db
+
+# Local overrides
+*.local
+.env
+.env.local
+
+# Test output
+coverage/
+
+# Playwright
+test-results/
+playwright-report/
+
+# Internal deploy docs (not meant for publication)
+EC2-SETUP.md
