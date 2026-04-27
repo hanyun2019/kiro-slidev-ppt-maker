@@ -47,6 +47,50 @@ ppt-{topic-name}/
 - **DO use appropriate layouts and components** based on the example (avoid animations)
 - **DO use AWS dark theme** (`theme: ../theme-aws-dark`) by default for all presentations
 
+### Blog URL Fetching (CRITICAL for blog-to-PPT workflow)
+
+When the user provides a blog URL, follow this fetching strategy:
+
+**Step 1: Try default fetch**
+```
+webFetch(url, mode="full")
+```
+
+**Step 2: Evaluate the result**
+
+Fetched content is considered **insufficient** if ANY of these are true:
+- Response size is less than 500 bytes
+- Response contains "Could not extract readable content" or similar
+- Response contains only navigation / menu text with no article body
+- Response is a login wall or paywall message
+- The main heading / first paragraph is missing
+
+**Step 3: If insufficient, retry with rendered mode**
+```
+webFetch(url, mode="rendered")
+```
+
+Rendered mode uses a full browser engine and handles JavaScript-heavy pages
+(common on modern tech blogs like builder.aws.com, medium.com, substack.com,
+dev.to).
+
+**Step 4: If both modes fail**
+
+Tell the user explicitly what happened, e.g.:
+> "I couldn't extract readable content from that URL. Could be that the site
+> requires login, has anti-bot protection, or uses a format I don't support.
+> Two options: (1) paste the blog text directly into our chat and I'll work
+> from that, or (2) give me a different public URL for the same content."
+
+**DO NOT hallucinate content** if fetching fails. Never write a presentation
+based on the URL's path or page title alone.
+
+**Sites known to require `mode="rendered"`:**
+- `builder.aws.com` — AWS Builder Center (React SPA)
+- Any URL containing `/p/` on Substack domains
+- Notion public pages
+- Some modern blogs behind Cloudflare protection
+
 ### Language Detection & i18n (CRITICAL)
 
 The theme supports both English and Chinese. You MUST detect the target language and set `lang:` in the headmatter accordingly.
@@ -76,6 +120,31 @@ fonts:
   local: 'PingFang SC, HarmonyOS Sans SC'
 ---
 ```
+
+**Font loading fallback for users in regions where Google Fonts is slow or blocked:**
+
+If the user indicates they're in mainland China, or if they report that
+Chinese fonts fail to load, provide this alternative headmatter that relies
+on local system fonts only (no external font CDN request):
+
+```yaml
+---
+theme: ../theme-aws-dark
+title: 技术分享
+layout: cover
+lang: zh
+# No `fonts:` block — rely on system fonts only.
+# macOS/iOS users get PingFang SC natively (best rendering).
+# Huawei HarmonyOS devices get HarmonyOS Sans SC.
+# Windows users get whatever CJK system font is installed (fallback via the
+# CSS `--theme-font-family-zh` stack). Quality is acceptable but not optimal.
+---
+```
+
+Trade-off: slightly lower rendering quality on Windows/Linux where no
+curated CJK font may be installed, in exchange for zero external network
+dependency at runtime. If quality on Windows is critical, consider
+installing Noto Sans SC manually from https://fonts.google.com/noto/specimen/Noto+Sans+SC.
 
 **Headmatter example (English):**
 

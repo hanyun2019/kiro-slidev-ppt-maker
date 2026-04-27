@@ -35,3 +35,6 @@ playwright-report/
 
 # Internal deploy docs (not meant for publication)
 EC2-SETUP.md
+
+# Blog drafts (published elsewhere, not tracked in the tool repo)
+blog/

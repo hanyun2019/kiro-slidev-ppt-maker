@@ -172,6 +172,11 @@ theme: ../theme-aws-dark   # default
 - [Node.js](https://nodejs.org/) 18+ — for running Slidev
 - npm (comes with Node.js)
 
+> Run into something unexpected? Check [docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md)
+> — it covers the most common issues: Node version mismatches, blog URLs
+> that need JavaScript rendering, Chinese font loading in mainland China,
+> and more.
+
 ## Credits
 
 This project is based on and extends the original work by

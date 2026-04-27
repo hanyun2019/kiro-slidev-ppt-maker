@@ -168,6 +168,10 @@ theme: ../theme-aws-dark   # 默认
 - [Node.js](https://nodejs.org/) 18+ — 运行 Slidev
 - npm (随 Node.js 一起安装)
 
+> 跑起来遇到问题？看 [docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md)
+> —— 涵盖最常见的坑：Node 版本不匹配、博客 URL 抓不到内容（需要 JS
+> 渲染）、中国大陆用户中文字体加载慢等。
+
 ## 致谢
 
 本项目基于 [@yytdfc](https://github.com/yytdfc) 的原作品扩展：
