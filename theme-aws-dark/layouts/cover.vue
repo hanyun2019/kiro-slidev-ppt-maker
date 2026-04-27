@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useThemeI18n } from '../setup/i18n'
 
 const props = defineProps({
   sessionId: {
@@ -9,6 +10,7 @@ const props = defineProps({
 })
 
 const showSessionId = computed(() => props.sessionId && props.sessionId.trim() !== '')
+const { showBrand } = useThemeI18n()
 </script>
 
 <template>
@@ -38,8 +40,9 @@ const showSessionId = computed(() => props.sessionId && props.sessionId.trim() !
     </div>
     
     <div class="cover-footer">
-      <p class="copyright">© {{ new Date().getFullYear() }}, Amazon Web Services, Inc. or its affiliates. All rights reserved.</p>
-      <div class="aws-logo-large">
+      <p v-if="showBrand" class="copyright">© {{ new Date().getFullYear() }}, Amazon Web Services, Inc. or its affiliates. All rights reserved.</p>
+      <p v-else class="copyright-spacer">&nbsp;</p>
+      <div v-if="showBrand" class="aws-logo-large">
         <AWSLogo size="lg" color="#ffffff" />
       </div>
     </div>
@@ -162,6 +165,15 @@ const showSessionId = computed(() => props.sessionId && props.sessionId.trim() !
   margin: 0;
   line-height: 1.2;
   max-width: 60%;
+}
+
+.copyright-spacer {
+  /* Placeholder when brand copyright is hidden (zh), keeps footer height
+   * consistent so cover content doesn't shift. */
+  font-size: 0.5rem;
+  line-height: 1.2;
+  margin: 0;
+  visibility: hidden;
 }
 
 .aws-logo-large {

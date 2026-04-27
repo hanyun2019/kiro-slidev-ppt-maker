@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { useThemeI18n } from '../setup/i18n'
+const { showBrand } = useThemeI18n()
+</script>
+
 <template>
   <div class="slidev-layout two-cols">
     <div class="two-cols-content">
@@ -18,10 +23,11 @@
     </div>
     
     <div class="two-cols-footer">
-      <div class="footer-left">
+      <div v-if="showBrand" class="footer-left">
         <AWSLogo size="sm" color="#e0e0e0" />
         <p class="copyright">© {{ new Date().getFullYear() }}, Amazon Web Services, Inc. or its affiliates. All rights reserved.</p>
       </div>
+      <div v-else class="footer-left" />
       <div class="page-number-box">
         <SlideCurrentNo />
       </div>
