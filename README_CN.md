@@ -1,28 +1,28 @@
-# Kiro Slidev PPT 制作工具
+# Kiro Slidev PPT Maker
 
-[English](./README.md) | 中文文档
+中文 | [English](./README.md)
 
-一个基于 Kiro IDE 和 Slidev 框架的 AI 驱动演示文稿生成器。通过简单的自然语言提示创建专业的 AWS 主题演示文稿。
+> **用 AI 把博客文章一键生成专业演示文稿**，由 [Kiro IDE](https://kiro.dev) 和 [Slidev](https://sli.dev/) 驱动。
 
-🎥 **视频演示**
-https://github.com/user-attachments/assets/5db3217c-58e7-4cb3-8a54-3f7ba2d3926f
+在 Kiro 里贴一个博客链接，就能得到一份结构完整、AWS 风格设计、支持中英双语、带丰富可视化组件的 PPT——不用手动排版。
 
+## 功能特性
 
-## 特性
-
-- 🤖 **AI 驱动**: 使用自然语言生成完整的演示文稿
-- 🎨 **AWS 深色主题**: 内置专业的 AWS 深色主题
-- 📝 **基于 Markdown**: 易于编辑和版本控制
-- 🚀 **快速预览**: 使用 Slidev 即时预览
-- 📤 **多种导出格式**: PDF、PPTX、PNG 和静态网站
-- 🎯 **最佳实践**: 内置内容密度、图表和动画规则
+- 🤖 **一个 prompt 把博客变 PPT** — 粘贴任意文章 URL，生成结构化演示
+- 🌍 **多语言主题** — 内置中英文支持，自动匹配合适的字体
+- 🎨 **AWS 深色主题** — 专业的深色设计，带 AWS 品牌风格
+- 📊 **自定义图表组件** — StatCard、Timeline、ComparisonTable 以及 Mermaid 架构模板
+- 📝 **基于 Markdown** — 便于编辑、diff 和版本控制
+- 🚀 **即时预览** — Slidev 热重载
+- 📤 **多种导出格式** — PDF、PPTX、PNG、静态网站
 
 ## 快速开始
 
 ### 1. 克隆仓库
 
 ```bash
-git clone https://github.com/yytdfc/kiro-slidev-ppt-maker
+git clone https://github.com/hanyun2019/kiro-slidev-ppt-maker
+cd kiro-slidev-ppt-maker
 ```
 
 ### 2. 在 Kiro IDE 中打开
@@ -31,100 +31,38 @@ git clone https://github.com/yytdfc/kiro-slidev-ppt-maker
 kiro kiro-slidev-ppt-maker
 ```
 
-### 3. 使用 AI 创建演示文稿
+### 3. 用 AI 生成演示文稿
 
-1. 在 Kiro IDE 中打开对话会话
-2. 切换到 **Vibe 模式**（AI 代理模式）
-3. 提供您的需求，例如：
-   - "创建一个关于 AWS Lambda 介绍的 PPT"
-   - "根据这个博客生成演示文稿：[URL]"
-   - "制作一个关于微服务架构的技术演示"
+在 Kiro 的对话框里，试试这个 prompt（真实博客示例）：
 
-### 4. 预览和演示
+```
+根据这篇博客生成一份 PPT：https://builder.aws.com/content/3CQFzc91nM9sGkfHRbpjo4eXojf/deploying-openclaw-on-aws-ec2-a-developers-perspective
+```
 
-AI 生成演示文稿后，安装依赖并启动 Slidev 服务器：
+或者直接描述你想要什么：
+
+```
+做一份关于 AWS Lambda 的中文 PPT
+```
+
+```
+做一份 10 页的微服务技术分享
+```
+
+Kiro 会读取 `.kiro/steering/skill.md` 里的规则，参考 `ppt-aws-theme-demo/` 学习
+语法，然后在新目录 `ppt-{主题}/` 下生成一份完整的演示文稿。
+
+> 💡 仓库里的 `examples/ppt-openclaw-aws-ec2/` 就是从上面那个博客 URL 真实生成的
+> 结果——可以直接用 `npx slidev examples/ppt-openclaw-aws-ec2/slides.md` 预览。
+
+### 4. 预览效果
 
 ```bash
-# 首次运行：安装依赖
 npm install
-
-# 启动 Slidev 服务器
-npx slidev ppt-{您的主题}/slides.md
+npx slidev ppt-{你的主题}/slides.md
 ```
 
-例如：
-```bash
-npm install
-npx slidev ppt-aws-lambda/slides.md
-```
-
-Slidev 将启动本地服务器并提供多个 URL：
-
-```
-●■▲ Slidev  v52.10.1
-
-  theme       ../theme-aws-dark
-  css engine  unocss
-  entry       /path/to/ppt-aws-lambda/slides.md
-
-  public slide show   > http://localhost:3030/
-  presenter mode      > http://localhost:3030/presenter/
-  slides overview     > http://localhost:3030/overview/
-  export slides       > http://localhost:3030/export/
-```
-
-**可用模式：**
-- **幻灯片放映** (`http://localhost:3030/`) - 演示您的幻灯片
-- **演讲者模式** (`http://localhost:3030/presenter/`) - 查看演讲者备注
-- **概览模式** (`http://localhost:3030/overview/`) - 一次查看所有幻灯片
-- **导出模式** (`http://localhost:3030/export/`) - 导出为 PDF、PPTX 或 PNG
-
-在浏览器中打开任意 URL 即可查看、编辑和导出您的演示文稿！
-
-## 工作原理
-
-### 架构
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         Kiro IDE                            │
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │              AI 代理 (Vibe 模式)                       │  │
-│  │  - 从 .kiro/steering/skill.md 读取规则                 │  │
-│  │  - 从 ppt-aws-theme-demo 学习 Slidev 语法              │  │
-│  │  - 生成演示文稿内容                                     │  │
-│  └───────────────────────────────────────────────────────┘  │
-│                           ↓                                 │
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │         生成的项目: ppt-{主题}/                         │  │
-│  │  ├── slides.md (Markdown 演示文稿)                     │  │
-│  │  └── public/ (图片、资源)                              │  │
-│  └───────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────┘
-                           ↓
-                    ┌──────────────┐
-                    │    Slidev    │
-                    │  (预览和导出) │
-                    └──────────────┘
-```
-
-### 核心组件
-
-1. **引导规则** (`.kiro/steering/skill.md`)
-   - 定义 AI 代理的行为和指南
-   - 指定 Slidev 语法和最佳实践
-   - 强制执行内容密度、图表简洁性和动画规则
-   - 设置 AWS 深色主题为默认主题
-
-2. **主题模板** (`ppt-aws-theme-demo/`)
-   - 带有 AWS 深色主题的参考示例
-   - 展示所有可用的布局和功能
-   - 显示正确的语法和组件使用方法
-
-3. **AWS 深色主题** (`theme-aws-dark/`)
-   - 专业的 AWS 品牌深色主题
-   - 针对技术演示优化
-   - 一致的样式和配色方案
+打开 `http://localhost:3030/` 查看幻灯片、演讲者模式、概览或导出面板。
 
 ## 项目结构
 
@@ -132,100 +70,126 @@ Slidev 将启动本地服务器并提供多个 URL：
 kiro-slidev-ppt-maker/
 ├── .kiro/
 │   └── steering/
-│       └── skill.md              # AI 代理规则和指南
-├── theme-aws-dark/               # Slidev 的 AWS 深色主题
-├── ppt-aws-theme-demo/           # 参考示例项目
-│   └── slides.md                 # 示例演示文稿
-├── ppt-{您的主题}/               # 生成的演示文稿
-│   ├── slides.md                 # 您的演示文稿内容
-│   └── public/                   # 资源（图片等）
-└── README.md
+│       └── skill.md              # 博客转 PPT 的 AI agent 规则
+├── theme-aws-dark/               # 深色主题 (Vue 组件、布局、样式)
+│   ├── components/               # StatCard / Timeline / ComparisonTable 等
+│   ├── layouts/                  # cover / default / section / end 等
+│   ├── setup/i18n.ts             # 多语言组合函数（lang + showBrand）
+│   ├── snippets/architectures/   # Mermaid 架构模板
+│   └── styles/
+├── ppt-aws-theme-demo/           # 英文参考模板 — AI 会读它来学语法
+├── ppt-aws-theme-demo-cn/        # 中文参考模板
+├── examples/                     # 已生成的示例演示
+│   ├── ppt-claude-agent-sdk-bedrock/
+│   ├── ppt-chip-and-mortar/
+│   └── ppt-openclaw-aws-ec2/
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+└── README_CN.md
+```
+
+## 工作原理
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                         Kiro IDE                             │
+│  ┌────────────────────────────────────────────────────────┐  │
+│  │         AI Agent 读取规则                              │  │
+│  │         (.kiro/steering/skill.md)                      │  │
+│  │              ↓                                         │  │
+│  │         抓取博客内容                                   │  │
+│  │              ↓                                         │  │
+│  │         从 ppt-aws-theme-demo/ 学语法                  │  │
+│  │              ↓                                         │  │
+│  │         生成 ppt-{主题}/slides.md                      │  │
+│  └────────────────────────────────────────────────────────┘  │
+└──────────────────────────────────────────────────────────────┘
+                            ↓
+                    ┌──────────────┐
+                    │    Slidev    │
+                    │  (预览和导出) │
+                    └──────────────┘
 ```
 
 ## 示例
 
-### 示例 1: 技术博客转演示文稿
-```
-用户: "根据这篇关于 Lambda Managed Instances 的 AWS 博客创建 PPT"
-AI: [生成 ppt-lambda-managed-instances/ 完整演示文稿]
-```
+`examples/` 目录下有三份基于真实博客生成的演示文稿：
 
-### 示例 2: 基于主题的演示文稿
-```
-用户: "制作一个关于微服务架构的演示文稿，包含 10 张幻灯片"
-AI: [生成 ppt-microservices-architecture/ 结构化内容]
-```
+| 示例 | 来源 | 主题 |
+|------|------|------|
+| `ppt-claude-agent-sdk-bedrock/` | AWS Builder Center | 在 Amazon Bedrock 上运行 Claude Agent SDK |
+| `ppt-chip-and-mortar/` | AI Realist | AWS AI 基础设施策略分析 |
+| `ppt-openclaw-aws-ec2/` | AWS Builder Center | 在 AWS EC2 上部署 OpenClaw |
 
-### 示例 3: 中文支持
-```
-用户: "根据这个技术文档制作一个中文 PPT"
-AI: [生成格式正确的中文演示文稿]
+预览任意示例：
+
+```bash
+npx slidev examples/ppt-openclaw-aws-ec2/slides.md
 ```
 
 ## 自定义
 
-### 修改 AI 行为
-编辑 `.kiro/steering/skill.md` 以自定义：
-- 内容组织规则
-- 动画偏好
-- 图表复杂度限制
-- 图标使用指南
+### 切换语言
 
-### 更改主题
-在演示文稿的 headmatter 中修改主题：
+在演示文稿的 headmatter 里：
+
 ```yaml
 ---
-theme: ../theme-aws-dark  # 默认 AWS 深色主题
-# 或使用其他主题:
+theme: ../theme-aws-dark
+lang: zh   # 或 'en'
+---
+```
+
+### 修改 AI 行为
+
+编辑 `.kiro/steering/skill.md` 可以自定义：
+- 内容组织规则
+- 动画偏好（默认：不使用动画）
+- 图表复杂度限制
+- 图标使用规范
+- 默认主题和语言
+
+### 更换主题
+
+```yaml
+---
+theme: ../theme-aws-dark   # 默认
+# 或
 # theme: default
 # theme: seriph
 ---
 ```
 
-## 系统要求
+## 环境要求
 
-- [Kiro IDE](https://kiro.dev) - AI 驱动的开发环境
-- [Node.js](https://nodejs.org/) - 运行 Slidev
-- [npx](https://www.npmjs.com/package/npx) - Node.js 自带
-
-## 使用技巧
-
-1. **明确需求**: 提供清晰的需求以获得更好的结果
-2. **迭代优化**: 要求 AI 修改特定的幻灯片或部分
-3. **经常预览**: 使用 `npx slidev` 检查您的演示文稿
-4. **保持简洁**: 遵循 AI 的内容密度指南
-5. **参考示例**: 查看 `ppt-aws-theme-demo/` 了解语法
-
-## 故障排除
-
-### 图表溢出
-- AI 会自动添加 `{scale: 0.7}` 或 `{scale: 0.8}`
-- 如果仍然溢出，要求 AI 拆分为多个幻灯片
-
-### 图标不显示
-- AI 使用已验证的 carbon 图标或 emoji 替代
-- 查看 `ppt-aws-theme-demo/` 中的工作示例
-
-### 主题未加载
-- 确保 headmatter 中有 `theme: ../theme-aws-dark`
-- 验证 `theme-aws-dark/` 目录存在
-
-## 贡献
-
-欢迎贡献！请随时提交问题或拉取请求。
-
-## 许可证
-
-MIT 许可证 - 详见 LICENSE 文件
+- [Kiro IDE](https://kiro.dev) — AI 驱动的开发环境
+- [Node.js](https://nodejs.org/) 18+ — 运行 Slidev
+- npm (随 Node.js 一起安装)
 
 ## 致谢
 
-- 使用 [Slidev](https://sli.dev/) 构建
-- 由 [Kiro IDE](https://kiro.dev) 驱动
-- AWS 深色主题灵感来自 AWS 设计指南
+本项目基于 [@yytdfc](https://github.com/yytdfc) 的原作品扩展：
+[kiro-slidev-ppt-maker](https://github.com/yytdfc/kiro-slidev-ppt-maker)。
 
-## 链接
+本仓库新增和改进的内容：
+- 🌍 多语言主题支持（英文 + 中文）
+- 📊 自定义图表组件（StatCard、Timeline、ComparisonTable）
+- 🏗️ Mermaid 架构模板片段（AWS 风格）
+- 📝 针对博客转 PPT 场景强化的 AI steering 规则
+- 📚 扩展的文档和示例
 
-- [Slidev 文档](https://sli.dev/)
-- [Kiro IDE](https://kiro.dev)
-- [GitHub 仓库](https://github.com/yytdfc/kiro-slidev-ppt-maker)
+基于：
+- [Slidev](https://sli.dev/) — 基于 Markdown 的幻灯片工具
+- [Kiro IDE](https://kiro.dev) — AI 驱动的开发环境
+
+## 贡献
+
+欢迎 Issue 和 Pull Request。较大的改动请先开 Issue 讨论。
+
+## 许可证
+
+[MIT](./LICENSE) © 2026 Haowen Huang
+
+基于 [@yytdfc](https://github.com/yytdfc) 的 MIT 许可原作品。

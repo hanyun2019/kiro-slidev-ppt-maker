@@ -1,7 +1,33 @@
 {
   "name": "kiro-slidev-ppt-maker",
+  "version": "0.1.0",
+  "description": "AI-powered tool that turns blog posts into professional presentations in minutes, powered by Kiro IDE and Slidev.",
   "type": "module",
   "private": true,
+  "author": {
+    "name": "Haowen Huang",
+    "email": "hanyun2019@gmail.com",
+    "url": "https://github.com/hanyun2019"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanyun2019/kiro-slidev-ppt-maker.git"
+  },
+  "homepage": "https://github.com/hanyun2019/kiro-slidev-ppt-maker#readme",
+  "bugs": {
+    "url": "https://github.com/hanyun2019/kiro-slidev-ppt-maker/issues"
+  },
+  "keywords": [
+    "slidev",
+    "kiro",
+    "ai",
+    "presentation",
+    "ppt",
+    "aws",
+    "blog-to-ppt",
+    "i18n"
+  ],
+  "license": "MIT",
   "scripts": {
     "build": "slidev build",
     "dev": "slidev --open",
