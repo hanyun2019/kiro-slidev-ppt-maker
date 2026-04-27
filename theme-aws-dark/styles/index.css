@@ -22,6 +22,19 @@
   
   /* Typography */
   --theme-font-family: 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif;
+  /* Chinese font stack — open-source only.
+   * Order of resolution:
+   *   1. PingFang SC        — macOS/iOS native (no license concern)
+   *   2. HarmonyOS Sans SC  — Huawei HarmonyOS system font (free for commercial use)
+   *   3. Noto Sans SC       — SIL OFL 1.1, loaded via Slidev `fonts:` config
+   *                            or Google Fonts; safe to embed in exports
+   *   4. Source Han Sans SC — Adobe/Google open-source (SIL OFL)
+   *   5. sans-serif         — system fallback
+   * We intentionally do NOT include proprietary fonts such as
+   * Microsoft YaHei to avoid any licensing ambiguity, especially for
+   * PDF/PPTX exports that may embed font subsets.
+   */
+  --theme-font-family-zh: 'PingFang SC', 'HarmonyOS Sans SC', 'Noto Sans SC', 'Source Han Sans SC', sans-serif;
   --theme-font-size-h1: 3rem;
   --theme-font-size-h2: 2rem;
   --theme-font-size-h3: 1.5rem;
@@ -43,6 +56,18 @@ body {
   font-family: var(--theme-font-family);
   background: #000000;
   color: var(--theme-text);
+}
+
+/* Language-aware font stack.
+ * Slidev sets <html lang="..."> based on the `lang:` value in the slidev
+ * headmatter. We match common Chinese codes and switch to a CJK-friendly
+ * font stack; otherwise the default Amazon Ember stack is used.
+ */
+html[lang="zh"] body,
+html[lang="zh-CN"] body,
+html[lang="zh-Hans"] body,
+html[lang^="zh"] body {
+  font-family: var(--theme-font-family-zh);
 }
 
 /* Headings */
@@ -272,6 +297,12 @@ img {
   fill: #ffffff !important;
   font-family: 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif !important;
   font-size: 14px !important;
+}
+
+/* CJK override for mermaid labels */
+html[lang^="zh"] .mermaid .node .label,
+html[lang^="zh"] .mermaid .nodeLabel {
+  font-family: 'PingFang SC', 'HarmonyOS Sans SC', 'Noto Sans SC', 'Source Han Sans SC', sans-serif !important;
 }
 
 /* Edge labels */

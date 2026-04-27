@@ -2,6 +2,7 @@
 theme: ../theme-aws-dark
 title: AWS Dark Theme Demo
 layout: cover
+lang: en
 info: |
   ## AWS Dark Theme for Slidev
   A professional presentation theme with AWS branding
@@ -59,6 +60,17 @@ layout: section
 
 ---
 src: ./pages/03-backgrounds.md
+---
+
+---
+layout: section
+---
+
+# Part 4
+# Custom Components
+
+---
+src: ./pages/04-custom-components.md
 ---
 
 ---

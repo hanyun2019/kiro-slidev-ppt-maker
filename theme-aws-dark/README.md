@@ -254,6 +254,59 @@ graph LR
 
 For AWS architecture diagrams, use `-->` for standard connections or `---` for line-only connections.
 
+## Internationalization & Fonts
+
+The theme supports both English and Chinese presentations via the `lang:`
+headmatter field:
+
+```yaml
+---
+theme: ../theme-aws-dark
+lang: zh   # or 'en' (default)
+---
+```
+
+### Font Stacks
+
+**English (`lang: en` or omitted):**
+- `Amazon Ember` → `Helvetica Neue` → `Arial` → `sans-serif`
+
+**Chinese (`lang: zh`):**
+- `PingFang SC` → `HarmonyOS Sans SC` → `Noto Sans SC` → `Source Han Sans SC` → `sans-serif`
+
+### Font Licensing
+
+All fonts referenced in the Chinese stack are either:
+
+| Font | Source | License |
+|------|--------|---------|
+| PingFang SC | macOS/iOS system | Apple system font (free on Apple devices) |
+| HarmonyOS Sans SC | Huawei HarmonyOS | Free for commercial use |
+| Noto Sans SC | Adobe + Google | [SIL OFL 1.1](https://openfontlicense.org/) |
+| Source Han Sans SC | Adobe | [SIL OFL 1.1](https://openfontlicense.org/) |
+
+**Microsoft YaHei is intentionally NOT referenced** in the font stack, as its
+license is restrictive for PDF/PPTX export embedding. All fonts above are
+safe for commercial use and for embedding in exported documents.
+
+### Loading Noto Sans SC on Non-macOS Platforms
+
+For Chinese presentations on Windows/Linux (where PingFang SC is not
+available), use Slidev's `fonts:` config to auto-load Noto Sans SC from
+Google Fonts:
+
+```yaml
+---
+theme: ../theme-aws-dark
+lang: zh
+fonts:
+  sans: 'Noto Sans SC'
+  local: 'PingFang SC, HarmonyOS Sans SC'
+---
+```
+
+Slidev handles font loading automatically — no manual `<link>` tags needed.
+
 ## Colors
 
 - AWS Orange: `#ff9900`

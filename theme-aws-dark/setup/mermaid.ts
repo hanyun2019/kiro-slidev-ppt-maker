@@ -1,6 +1,17 @@
 import { defineMermaidSetup } from '@slidev/types'
 
 export default defineMermaidSetup(() => {
+  // Detect Chinese setting via the document's <html lang>.
+  // This runs once at init; users should set `lang:` in headmatter before
+  // authoring mermaid diagrams that contain CJK characters.
+  const isZh =
+    typeof document !== 'undefined' &&
+    /^zh/i.test(document.documentElement.getAttribute('lang') || '')
+
+  const fontFamily = isZh
+    ? 'PingFang SC, HarmonyOS Sans SC, Noto Sans SC, Source Han Sans SC, sans-serif'
+    : 'Amazon Ember, Helvetica Neue, Arial, sans-serif'
+
   return {
     theme: 'dark',
     themeVariables: {
@@ -16,7 +27,7 @@ export default defineMermaidSetup(() => {
       secondBkg: 'rgba(0, 161, 224, 0.08)',
       mainContrastColor: '#ffffff',
       darkMode: true,
-      fontFamily: 'Amazon Ember, Helvetica Neue, Arial, sans-serif',
+      fontFamily,
       fontSize: '16px',
       // 节点样式
       nodeBorder: '#00a1e0',

@@ -40,12 +40,99 @@ ppt-{topic-name}/
 
 ### Important Rules
 
-- **DO NOT modify** `./ppt-aws-theme-demo/` - it's a reference template only
+- **DO NOT modify** `./ppt-aws-theme-demo/` or `./ppt-aws-theme-demo-cn/` - they are reference templates only
 - **DO NOT work in root directory** - always create a project folder
-- **DO read** `./ppt-aws-theme-demo/slides.md` to learn Slidev syntax before creating new presentations
+- **DO read** `./ppt-aws-theme-demo/slides.md` (English) OR `./ppt-aws-theme-demo-cn/slides.md` (Chinese) to learn Slidev syntax before creating new presentations — pick whichever matches the target language
 - **DO create complete content** immediately without asking for confirmation
 - **DO use appropriate layouts and components** based on the example (avoid animations)
 - **DO use AWS dark theme** (`theme: ../theme-aws-dark`) by default for all presentations
+
+### Language Detection & i18n (CRITICAL)
+
+The theme supports both English and Chinese. You MUST detect the target language and set `lang:` in the headmatter accordingly.
+
+**Detection rules:**
+
+1. **Source blog language** — If the user provides a blog URL, inspect the fetched content:
+   - Mostly Chinese characters → `lang: zh`
+   - Otherwise → `lang: en`
+2. **User's prompt language** — If no URL given, match the language of the user's request:
+   - User writes in Chinese (e.g., "做一份技术分享PPT") → `lang: zh`
+   - User writes in English → `lang: en`
+3. **Explicit override** — If the user explicitly says "make it in Chinese" / "用中文" / "英文版", that always wins.
+
+**Headmatter example (Chinese):**
+
+```yaml
+---
+theme: ../theme-aws-dark
+title: 技术分享
+layout: cover
+lang: zh
+fonts:
+  # SIL OFL 1.1 licensed — safe for commercial use and PDF embedding.
+  # Slidev auto-loads from Google Fonts.
+  sans: 'Noto Sans SC'
+  local: 'PingFang SC, HarmonyOS Sans SC'
+---
+```
+
+**Headmatter example (English):**
+
+```yaml
+---
+theme: ../theme-aws-dark
+title: Technical Sharing
+layout: cover
+lang: en
+---
+```
+
+**What `lang:` actually does:**
+- Switches the body font stack — Chinese uses `PingFang SC / HarmonyOS Sans SC / Noto Sans SC / Source Han Sans SC`, English uses `Amazon Ember`
+- All Chinese fonts in the stack are either native system fonts (free) or open-source (SIL OFL 1.1)
+- **No proprietary fonts** (e.g., Microsoft YaHei) are referenced, to avoid licensing concerns in PDF/PPTX exports
+- Switches Mermaid diagram label font to the same CJK-friendly stack when `lang: zh`
+- Used by the theme's i18n helper for any localized UI strings
+- Does NOT change the copyright footer (kept as English per project policy)
+
+**When generating content:**
+- For `lang: zh` presentations — write slide text in Chinese; code comments can stay English; technical product names (AWS, Lambda, Bedrock) should usually stay in their original English form
+- For `lang: en` presentations — write all slide text in English
+- Do NOT mix languages in a single slide's body text unless it's a technical term or a quoted URL
+
+### AWS Trademark Compliance for Chinese Presentations (CRITICAL)
+
+**When `lang: zh`, the "AWS" word mark MUST NOT appear in any slide content or theme chrome.** This is a trademark compliance requirement in mainland China. The theme automatically hides the AWS logo and copyright footer when `lang: zh` is set — your responsibility is the **content you write**.
+
+**Forbidden in `lang: zh` slides:**
+- The letters "AWS" as a standalone brand mark (e.g., "AWS 架构", "AWS 云服务")
+- The AWS logo image or any visual of it
+- Product descriptions phrased as "AWS 的 XXX 服务"
+
+**Allowed in `lang: zh` slides:**
+- Full-form product names: `Amazon Bedrock`, `Amazon EC2`, `Amazon S3`, `Amazon DynamoDB`, `AWS Lambda` → write as `Lambda` (drop the "AWS " prefix when the service name itself contains it)
+- "Amazon Web Services" (full form) — this has no trademark restriction
+- "亚马逊云科技" (the official Chinese name of AWS in mainland China)
+- The AWS domain `aws.amazon.com` in URLs and links
+- CSS class names, variable names, file paths (e.g., `theme-aws-dark/`) — these are code structure, not visible content
+
+**Replacement patterns when copying from English templates (e.g., `snippets/architectures/*.md`):**
+
+| Source (English) | Target (Chinese `lang: zh`) |
+|------------------|------------------------------|
+| `AWS Glue ETL` | `Glue ETL` |
+| `AWS Lambda` | `Lambda` |
+| `AWS web app` | `云上 Web 应用` |
+| `AWS services` | `云服务` |
+| `Classic AWS web app` | `经典三层 Web 架构` |
+| `built on AWS` | `在 Amazon Web Services 上构建` |
+| `AWS account` | `Amazon Web Services 账户` |
+
+**Do NOT:**
+- Translate "AWS" to "亚马逊云科技" inside Mermaid node labels — use service names only
+- Keep "AWS" in Chinese text just because it came from an English template
+- Add "AWS" as an explanatory tag in Chinese (e.g., "Bedrock (AWS)") — the brand is already well understood without it
 
 ## I. Execution Workflow
 
@@ -101,7 +188,76 @@ mkdir ppt-{sanitized-topic-name}/
   - Code blocks, diagrams
   - Emoji for icons (🚀 ✅ ❌)
   - Background classes for emphasis (`class: bg-ocean`, `class: bg-sunset`)
+- **Custom theme components** (see "Custom Component Library" section below)
 - **End page**: Summary or call-to-action
+
+### Custom Component Library
+
+The AWS Dark theme ships with three purpose-built components. Prefer them over
+plain tables or bullet lists when the content fits the pattern:
+
+| Component | When to use | Don't use when |
+|-----------|-------------|----------------|
+| **`<StatCard>`** | Spotlighting a single metric (revenue, user count, percentage) | You have more than 4 numbers on one slide — use a table instead |
+| **`<Timeline>` + `<TimelineItem>`** | Sequential events, product history, release roadmap | Non-chronological lists — use bullets |
+| **`<ComparisonTable>`** | A vs B, pros vs cons, before vs after | More than 2 columns — use a Markdown table |
+
+**Quick-reference syntax:**
+
+```md
+<!-- StatCard -->
+<StatCard value="$200B" label="2026 capex" trend="up" color="orange" />
+
+<!-- Timeline -->
+<Timeline>
+  <TimelineItem date="2015" title="Event title">
+    Event description.
+  </TimelineItem>
+  <TimelineItem date="2026" title="Key event" highlight>
+    Marked in orange.
+  </TimelineItem>
+</Timeline>
+
+<!-- ComparisonTable -->
+<ComparisonTable
+  leftTitle="Option A"
+  rightTitle="Option B"
+  leftAccent="red"
+  rightAccent="green"
+>
+<template #left>
+
+- Point 1
+- Point 2
+
+</template>
+<template #right>
+
+- Point 1
+- Point 2
+
+</template>
+</ComparisonTable>
+```
+
+**DO NOT invent new components** — use only what exists in
+`theme-aws-dark/components/`. If none fits, fall back to standard Markdown.
+
+### Architecture Diagrams (Mermaid Snippets)
+
+When generating architecture diagrams, check `theme-aws-dark/snippets/architectures/`
+for pre-built templates before writing from scratch:
+
+| Scenario in user's request | Template to copy |
+|----------------------------|------------------|
+| Classic web app, 3-tier, load balancer | `aws-basic-web.md` |
+| Lambda / API Gateway / event-driven | `aws-serverless.md` |
+| Basic AI agent with Bedrock | `aws-ai-agent-simple.md` |
+| Enterprise AI agent, MCP, observability | `aws-ai-agent-production.md` |
+| Analytics, data lake, ETL | `aws-data-pipeline.md` |
+
+**Rule**: If one of these templates covers 70%+ of what the user is describing,
+copy its Mermaid block and adjust node names — don't write a diagram from scratch.
 
 **Step 4: Organize into Chapters (for longer presentations)**
 
